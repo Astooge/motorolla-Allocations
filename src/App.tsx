@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import CollapsibleCardGrid from './CollapsibleCardGrid';
+import Map from './map'
+import "./card"
+import PopupWindow from "./popUpWindow"; 
 
-function App() {
+
+const App: React.FC = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const openPopup = () => {
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <div className = "wholePageLayout">
+      <div className ="navBar">
+        <button onClick={openPopup}>Open Popup</button>
+
+        {showPopup && <PopupWindow onClose={closePopup} />}
+      </div>
+      <div className ="container">
+        <div id = "cardsContainer">
+          <div id = "rightCol">
+            <h2>Collapsible Card Grid</h2>
+            <CollapsibleCardGrid />
+            
+          </div>
+          <div id = "leftCol">
+          <CollapsibleCardGrid />
+          </div>
+        </div>
+        <div id = "mapContainer">
+          <h2 > Map </h2>
+          <Map />
+        </div>
+      </div>
     </div>
+
   );
-}
+};
 
 export default App;
